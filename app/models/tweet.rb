@@ -14,18 +14,6 @@ after_validation :apply_link, on: :create
 
 	private
 
-	def apply_link
-  arr = self.message.split
-  index = arr.map { |x| x.include? "http://" }.index(true)
-  if index
-		url = arr[index]
-		arr[index] = "<a href='#{self.link}' target='_blank'>#{url}</a>"
-	end
-
-	self.message = arr.join(" ")
-
-end
-
     def link_check
       check = false
       if self.message.include? "http://" 
@@ -47,4 +35,16 @@ end
         self.message = arr.join(" ")
       end
      end	
+
+      def apply_link
+  arr = self.message.split
+  index = arr.map { |x| x.include? "http://" }.index(true)
+  if index
+    url = arr[index]
+    arr[index] = "<a href='#{self.link}' target='_blank'>#{url}</a>"
+  end
+
+  self.message = arr.join(" ")
+
+end
 end
